@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="style.css">
+    <title>Deposit Money</title>
+</head>
+<body>
+    <nav>
+        <a href="index.php">Home</a>
+        <a href="deposit.php">Deposit</a>
+        <a href="history.php">History</a>
+    </nav>
+
+    <div class="container" style="text-align: center;">
+        <h2>Deposit via KHQR (Acleda Bank)</h2>
+        <div style="margin-bottom: 20px;">
+            <input type="number" placeholder="Enter Amount ($)" id="amount">
+            <button class="btn-buy" onclick="generateQR()">Generate QR</button>
+        </div>
+
+        <div id="qr-display" style="display:none;">
+            <div class="qr-box">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=ACLEDABANK_SAMPLE" alt="KHQR">
+                <p style="color: black;">Scan to pay</p>
+            </div>
+            <p>After paying, please wait for manual verification or upload receipt.</p>
+        </div>
+    </div>
+
+    <script>
+        function generateQR() {
+            document.getElementById('qr-display').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
