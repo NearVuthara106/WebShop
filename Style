@@ -1,88 +1,103 @@
-/* Color Palette */
+/* Color Scheme */
 :root {
-    --bg-dark: #0f172a;
-    --card-bg: #1e293b;
+    --bg: #0b0e14;
+    --card: #1a1f29;
     --primary: #e94560;
     --secondary: #4ecca3;
-    --text-white: #f8fafc;
+    --text: #ffffff;
 }
 
 body {
-    background-color: var(--bg-dark);
-    color: var(--text-white);
-    font-family: 'Inter', sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', sans-serif;
     margin: 0;
 }
 
 /* Navbar */
-nav {
-    background: #16213e;
-    padding: 1rem 0;
-    border-bottom: 2px solid var(--primary);
-}
-
-.nav-container {
-    max-width: 1100px;
-    margin: auto;
+.navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
+    padding: 15px 5%;
+    background: #16213e;
+    border-bottom: 2px solid var(--primary);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
-.logo { font-size: 1.5rem; font-weight: 800; }
-.logo span { color: var(--primary); }
+.logo { font-size: 24px; font-weight: bold; color: var(--primary); }
 
 .nav-links { list-style: none; display: flex; gap: 20px; }
+
 .nav-links a { color: white; text-decoration: none; font-weight: 500; }
 
 .box-money {
-    background: var(--primary);
+    background: var(--secondary);
+    color: var(--bg);
     padding: 8px 15px;
-    border-radius: 8px;
-}
-
-/* Grid & Cards */
-.container { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
-
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 25px;
-}
-
-.product-card {
-    background: var(--card-bg);
-    padding: 20px;
-    border-radius: 15px;
-    border: 1px solid #334155;
-    transition: 0.3s;
-}
-
-.product-card:hover { transform: translateY(-5px); border-color: var(--primary); }
-
-.cat-tag {
-    font-size: 12px;
-    background: #334155;
-    padding: 4px 10px;
     border-radius: 5px;
-    display: inline-block;
-}
-
-.price {
-    font-size: 1.5rem;
-    color: var(--secondary);
-    margin: 15px 0;
     font-weight: bold;
 }
 
-.btn-buy {
+/* Container */
+.container { width: 90%; max-width: 1100px; margin: auto; padding: 20px 0; }
+
+.title { border-left: 4px solid var(--primary); padding-left: 10px; margin-top: 50px; }
+
+/* Product Grid */
+.product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+
+.card {
+    background: var(--card);
+    padding: 20px;
+    border-radius: 12px;
+    position: relative;
+    border: 1px solid #334155;
+}
+
+.tag { font-size: 10px; background: var(--primary); padding: 2px 8px; border-radius: 3px; }
+
+.price { font-size: 24px; color: var(--secondary); font-weight: bold; margin: 15px 0; }
+
+.buy-btn {
     width: 100%;
     background: var(--primary);
     color: white;
     border: none;
-    padding: 12px;
-    border-radius: 8px;
+    padding: 10px;
+    border-radius: 5px;
     cursor: pointer;
     font-weight: bold;
 }
+
+/* Deposit Section */
+.qr-container {
+    background: var(--card);
+    text-align: center;
+    padding: 40px;
+    border-radius: 20px;
+}
+
+.qr-code { background: white; padding: 10px; border-radius: 10px; margin: 20px 0; }
+
+.telegram-btn {
+    background: #0088cc;
+    color: white;
+    text-decoration: none;
+    padding: 10px 25px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+/* Table */
+.history-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+
+.history-table th, .history-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #334155;
+}
+
+.status-done { color: var(--secondary); font-weight: bold; }
