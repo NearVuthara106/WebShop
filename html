@@ -1,36 +1,52 @@
+<?php
+// PHP logic to handle form submission
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $amount = $_POST['amount'];
+    // In a real app, you would save this request to your Database here
+    $show_qr = true;
+} else {
+    $show_qr = false;
+}
+?>
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <link rel="stylesheet" href="style.css">
     <title>Deposit Money</title>
 </head>
 <body>
+
     <nav>
-        <a href="index.php">Home</a>
-        <a href="deposit.php">Deposit</a>
-        <a href="history.php">History</a>
+        <div class="nav-container">
+            <div class="logo">GAME<span>STORE</span></div>
+            <ul class="nav-links">
+                <li><a href="index.php">Home</a></li>
+                <li><a href="deposit.php">Deposit</a></li>
+                <li><a href="history.php">History</a></li>
+            </ul>
+        </div>
     </nav>
 
     <div class="container" style="text-align: center;">
-        <h2>Deposit via KHQR (Acleda Bank)</h2>
-        <div style="margin-bottom: 20px;">
-            <input type="number" placeholder="Enter Amount ($)" id="amount">
-            <button class="btn-buy" onclick="generateQR()">Generate QR</button>
-        </div>
+        <h2>Top Up Balance</h2>
+        
+        <form method="POST" style="margin-bottom: 30px;">
+            <input type="number" name="amount" placeholder="Enter Amount ($)" required 
+                   style="padding: 12px; border-radius: 8px; border: none; width: 200px;">
+            <button type="submit" class="btn-buy" style="width: auto; padding: 12px 30px;">Get QR</button>
+        </form>
 
-        <div id="qr-display" style="display:none;">
-            <div class="qr-box">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=ACLEDABANK_SAMPLE" alt="KHQR">
-                <p style="color: black;">Scan to pay</p>
+        <?php if ($show_qr): ?>
+        <div id="khqr-area">
+            <p>Scan with <strong>Acleda Mobile</strong> to pay <strong>$<?php echo $amount; ?></strong></p>
+            <div style="background: white; padding: 20px; display: inline-block; border-radius: 15px;">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=ACLEDABANK_KHQR_ID_12345" alt="KHQR">
             </div>
-            <p>After paying, please wait for manual verification or upload receipt.</p>
+            <p style="margin-top: 15px; color: #94a3b8;">After paying, please upload your screenshot in the History page.</p>
         </div>
+        <?php endif; ?>
     </div>
 
-    <script>
-        function generateQR() {
-            document.getElementById('qr-display').style.display = 'block';
-        }
-    </script>
 </body>
 </html>
