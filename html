@@ -3,39 +3,222 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Acc Shop</title>
-    <link rel="stylesheet" href="style.css">
+    <title>RITHSTORE - Premium Accounts</title>
+    <style>
+        /* CSS SECTION */
+        :root {
+            --bg: #0b0f1a;
+            --card-bg: #161b2c;
+            --primary-blue: #38bdf8;
+            --aba-color: #005e7e;
+            --wing-color: #92c83e;
+            --khqr-gradient: linear-gradient(135deg, #e11d48, #fb923c);
+            --text-main: #ffffff;
+            --text-dim: #94a3b8;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding-bottom: 50px;
+        }
+
+        /* Navbar */
+        nav {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1e293b;
+        }
+        .logo { font-size: 22px; font-weight: 800; color: #38bdf8; }
+        .logo span { color: #fff; }
+
+        .container { max-width: 500px; margin: 20px auto; padding: 0 15px; }
+
+        /* Search & Filter Section */
+        h1 { font-size: 28px; margin-bottom: 5px; }
+        .subtitle { color: var(--text-dim); margin-bottom: 25px; font-size: 14px; }
+
+        #searchInput {
+            width: 100%;
+            padding: 15px;
+            background: #111827;
+            border: 1px solid #1e293b;
+            border-radius: 12px;
+            color: white;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        .filter-box {
+            background: #111827;
+            border-radius: 12px;
+            border: 1px solid #1e293b;
+            margin-bottom: 30px;
+        }
+
+        .filter-option {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 20px;
+            cursor: pointer;
+            border-bottom: 1px solid #1e293b;
+        }
+        .filter-option:last-child { border-bottom: none; }
+
+        .radio-circle {
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--text-dim);
+            border-radius: 50%;
+            position: relative;
+        }
+        .filter-option.active .radio-circle { border-color: #fff; }
+        .filter-option.active .radio-circle::after {
+            content: ""; position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px; height: 10px; background: #fff; border-radius: 50%;
+        }
+
+        /* Product Cards */
+        .card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            border: 1px solid #1e293b;
+        }
+
+        .badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        .out-of-stock-badge { background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid #ef4444; }
+        .game-badge { background: #3b82f6; color: white; left: 15px; right: auto; top: 15px; }
+
+        .card-img { width: 100%; height: 150px; object-fit: contain; margin-bottom: 15px; }
+        .price { font-size: 20px; font-weight: bold; color: var(--primary-blue); margin: 10px 0; }
+
+        .buy-btn {
+            width: 100%; padding: 12px; border-radius: 8px; border: none;
+            background: #1e293b; color: white; font-weight: bold; cursor: pointer;
+        }
+        .buy-btn.disabled { opacity: 0.5; cursor: not-allowed; }
+
+        /* Payment Footer */
+        .payment-methods { text-align: center; margin-top: 40px; }
+        .pay-grid { display: flex; justify-content: center; gap: 10px; margin-top: 15px; }
+        .pay-item { padding: 10px 20px; border-radius: 10px; background: #111827; font-weight: bold; font-size: 14px; }
+        .pay-item.khqr { background: var(--khqr-gradient); }
+        .pay-item.aba { background: var(--aba-color); }
+        .pay-item.wing { background: var(--wing-color); }
+
+        /* Telegram Float */
+        .tg-float {
+            position: fixed; bottom: 20px; right: 20px;
+            background: #26A5E4; padding: 12px; border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        .tg-float img { width: 25px; height: 25px; display: block; }
+    </style>
 </head>
 <body>
 
     <nav>
-        <div class="logo">PREMIUM<span>SHOP</span></div>
+        <div class="logo">RITH<span>STORE</span></div>
+        <div style="font-size: 20px;">☰</div>
     </nav>
 
     <div class="container">
-        <h1>Select Your Premium Plan</h1>
-        <div class="shop-grid">
-            
-            <div class="card">
-                <div class="badge">Best Seller</div>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Netflix" class="card-img">
-                <h3>Netflix Premium</h3>
-                <p>4K UHD + 4 Screens</p>
-                <div class="price">$5.00 <span>/ month</span></div>
-                <button class="buy-btn" data-product="netflix_premium">Buy Now</button>
+        <h1>Our <span>Products</span></h1>
+        <p class="subtitle">Browse our collection of digital products</p>
+
+        <input type="text" id="searchInput" placeholder="Search by name...">
+
+        <div class="filter-box">
+            <div class="filter-option active" data-cat="all">
+                <span>All Categories</span> <div class="radio-circle"></div>
+            </div>
+            <div class="filter-option" data-cat="game">
+                <span>Game</span> <div class="radio-circle"></div>
+            </div>
+            <div class="filter-option" data-cat="premium">
+                <span>Premium - Plan</span> <div class="radio-circle"></div>
+            </div>
+        </div>
+
+        <div id="productGrid">
+            <div class="card" data-category="game">
+                <div class="badge game-badge">GAME</div>
+                <div class="badge out-of-stock-badge">Out of stock</div>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/f/fc/Valorant_logo_-_V_margin.svg" class="card-img">
+                <h3>VALORANT - With Skin</h3>
+                <div class="price">$5.00</div>
+                <button class="buy-btn disabled">Out of Stock</button>
             </div>
 
-            <div class="card">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg" alt="Spotify" class="card-img">
-                <h3>Spotify Family</h3>
-                <p>No Ads + Offline Mode</p>
-                <div class="price">$3.50 <span>/ month</span></div>
-                <button class="buy-btn" data-product="spotify_family">Buy Now</button>
+            <div class="card" data-category="premium">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" class="card-img">
+                <h3>Netflix Premium 1 Month</h3>
+                <div class="price">$3.50</div>
+                <button class="buy-btn">Buy Now</button>
             </div>
+        </div>
 
+        <div class="payment-methods">
+            <p>Payment Methods</p>
+            <div class="pay-grid">
+                <div class="pay-item khqr">KHQR</div>
+                <div class="pay-item aba">ABA</div>
+                <div class="pay-item wing">Wing</div>
+            </div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <a href="https://t.me/yourusername" class="tg-float">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg">
+    </a>
+
+    <script>
+        // JS SECTION
+        const searchInput = document.getElementById('searchInput');
+        const filterOptions = document.querySelectorAll('.filter-option');
+        const cards = document.querySelectorAll('.card');
+
+        // Search & Filter Function
+        function updateDisplay() {
+            const term = searchInput.value.toLowerCase();
+            const category = document.querySelector('.filter-option.active').dataset.cat;
+
+            cards.forEach(card => {
+                const title = card.querySelector('h3').innerText.toLowerCase();
+                const cardCat = card.dataset.category;
+                
+                const matchesSearch = title.includes(term);
+                const matchesCat = (category === 'all' || category === cardCat);
+
+                card.style.display = (matchesSearch && matchesCat) ? "block" : "none";
+            });
+        }
+
+        searchInput.addEventListener('input', updateDisplay);
+
+        filterOptions.forEach(opt => {
+            opt.addEventListener('click', () => {
+                filterOptions.forEach(o => o.classList.remove('active'));
+                opt.classList.add('active');
+                updateDisplay();
+            });
+        });
+    </script>
 </body>
 </html>
