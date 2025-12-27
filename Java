@@ -1,0 +1,28 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('.buy-btn');
+
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            const product = button.getAttribute('data-product');
+            
+            // For now, we simulate a checkout
+            handleCheckout(product);
+        });
+    });
+});
+
+async function handleCheckout(productId) {
+    console.log("Starting checkout for:", productId);
+    
+    // In a real app, you would fetch the payment URL from your server here
+    alert("Redirecting to secure payment for: " + productId.replace('_', ' '));
+    
+    /* Example of real Backend connection:
+    const res = await fetch('/api/create-session', {
+        method: 'POST',
+        body: JSON.stringify({ id: productId })
+    });
+    const data = await res.json();
+    window.location.href = data.url;
+    */
+}
