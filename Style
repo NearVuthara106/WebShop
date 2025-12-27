@@ -1,10 +1,8 @@
-/* Color Scheme */
 :root {
-    --bg: #0b0e14;
-    --card: #1a1f29;
-    --primary: #e94560;
-    --secondary: #4ecca3;
-    --text: #ffffff;
+    --bg: #0f172a;
+    --card-bg: #1e293b;
+    --primary: #38bdf8;
+    --text: #f8fafc;
 }
 
 body {
@@ -14,90 +12,83 @@ body {
     margin: 0;
 }
 
-/* Navbar */
-.navbar {
+nav {
+    padding: 20px 50px;
+    background: rgba(0,0,0,0.2);
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 5%;
-    background: #16213e;
-    border-bottom: 2px solid var(--primary);
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    justify-content: center;
 }
 
-.logo { font-size: 24px; font-weight: bold; color: var(--primary); }
-
-.nav-links { list-style: none; display: flex; gap: 20px; }
-
-.nav-links a { color: white; text-decoration: none; font-weight: 500; }
-
-.box-money {
-    background: var(--secondary);
-    color: var(--bg);
-    padding: 8px 15px;
-    border-radius: 5px;
+.logo {
+    font-size: 24px;
     font-weight: bold;
+    letter-spacing: 2px;
 }
 
-/* Container */
-.container { width: 90%; max-width: 1100px; margin: auto; padding: 20px 0; }
+.logo span { color: var(--primary); }
 
-.title { border-left: 4px solid var(--primary); padding-left: 10px; margin-top: 50px; }
+.container {
+    max-width: 1000px;
+    margin: 50px auto;
+    text-align: center;
+}
 
-/* Product Grid */
-.product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+.shop-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    padding: 20px;
+}
 
 .card {
-    background: var(--card);
-    padding: 20px;
-    border-radius: 12px;
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: 15px;
     position: relative;
+    transition: transform 0.3s ease;
     border: 1px solid #334155;
 }
 
-.tag { font-size: 10px; background: var(--primary); padding: 2px 8px; border-radius: 3px; }
+.card:hover {
+    transform: translateY(-10px);
+    border-color: var(--primary);
+}
 
-.price { font-size: 24px; color: var(--secondary); font-weight: bold; margin: 15px 0; }
+.card-img {
+    height: 50px;
+    margin-bottom: 20px;
+}
 
-.buy-btn {
-    width: 100%;
+.badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
     background: var(--primary);
-    color: white;
-    border: none;
-    padding: 10px;
+    color: #000;
+    font-size: 12px;
+    padding: 5px 10px;
     border-radius: 5px;
-    cursor: pointer;
     font-weight: bold;
 }
 
-/* Deposit Section */
-.qr-container {
-    background: var(--card);
-    text-align: center;
-    padding: 40px;
-    border-radius: 20px;
+.price {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 20px 0;
 }
 
-.qr-code { background: white; padding: 10px; border-radius: 10px; margin: 20px 0; }
+.price span { font-size: 14px; opacity: 0.6; }
 
-.telegram-btn {
-    background: #0088cc;
-    color: white;
-    text-decoration: none;
-    padding: 10px 25px;
-    border-radius: 5px;
-    display: inline-block;
+.buy-btn {
+    background: var(--primary);
+    color: #000;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    transition: opacity 0.2s;
 }
 
-/* Table */
-.history-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-
-.history-table th, .history-table td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #334155;
-}
-
-.status-done { color: var(--secondary); font-weight: bold; }
+.buy-btn:hover { opacity: 0.9; }
