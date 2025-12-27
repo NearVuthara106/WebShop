@@ -1,28 +1,40 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const buttons = document.querySelectorAll('.buy-btn');
+    const searchInput = document.getElementById('searchInput');
+    const filterOptions = document.querySelectorAll('.filter-option');
+    const cards = document.querySelectorAll('.card');
 
-    buttons.forEach(button => {
-        button.addEventListener('click', () => {
-            const product = button.getAttribute('data-product');
+    // Main Filter Function
+    function filterItems() {
+        const searchTerm = searchInput.value.toLowerCase();
+        const activeCategory = document.querySelector('.filter-option.active').dataset.cat;
+
+        cards.forEach(card => {
+            const title = card.querySelector('h3').innerText.toLowerCase();
+            const cardCategory = card.dataset.category;
+
+            const matchesSearch = title.includes(searchTerm);
+            const matchesCategory = (activeCategory === 'all' || cardCategory === activeCategory);
+
+            if (matchesSearch && matchesCategory) {
+                card.style.display = "block";
+            } else {
+                card.style.display = "none";
+            }
+        });
+    }
+
+    // Listen for typing in search bar
+    searchInput.addEventListener('input', filterItems);
+
+    // Listen for category clicks
+    filterOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            // Change UI selection
+            filterOptions.forEach(opt => opt.classList.remove('active'));
+            option.classList.add('active');
             
-            // For now, we simulate a checkout
-            handleCheckout(product);
+            // Run filter
+            filterItems();
         });
     });
 });
-
-async function handleCheckout(productId) {
-    console.log("Starting checkout for:", productId);
-    
-    // In a real app, you would fetch the payment URL from your server here
-    alert("Redirecting to secure payment for: " + productId.replace('_', ' '));
-    
-    /* Example of real Backend connection:
-    const res = await fetch('/api/create-session', {
-        method: 'POST',
-        body: JSON.stringify({ id: productId })
-    });
-    const data = await res.json();
-    window.location.href = data.url;
-    */
-}
