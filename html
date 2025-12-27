@@ -3,86 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Account Store</title>
+    <title>Premium Acc Shop</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="logo">CS-STORE</div>
-        <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#products">Products</a></li>
-            <li><a href="#deposit">Deposit</a></li>
-            <li><a href="#history">History</a></li>
-        </ul>
-        <div class="box-money">Wallet: $0.00</div>
+    <nav>
+        <div class="logo">PREMIUM<span>SHOP</span></div>
     </nav>
 
     <div class="container">
-        
-        <section class="search-section">
-            <select class="category-filter">
-                <option value="all">All Categories</option>
-                <option value="pubg">PUBG Mobile</option>
-                <option value="mlbb">Mobile Legends</option>
-            </select>
-            <input type="text" placeholder="Search account..." class="search-input">
-        </section>
-
-        <section id="products">
-            <h2 class="title">Available Accounts</h2>
-            <div class="product-grid">
-                <div class="card">
-                    <span class="tag">PUBG</span>
-                    <h3>Account #101</h3>
-                    <p>M416 Glacier + Lv. 70</p>
-                    <div class="price">$20.00</div>
-                    <button class="buy-btn">Buy Now</button>
-                </div>
-                <div class="card">
-                    <span class="tag">MLBB</span>
-                    <h3>Account #205</h3>
-                    <p>Legendary Skin + All Hero</p>
-                    <div class="price">$35.00</div>
-                    <button class="buy-btn">Buy Now</button>
-                </div>
+        <h1>Select Your Premium Plan</h1>
+        <div class="shop-grid">
+            
+            <div class="card">
+                <div class="badge">Best Seller</div>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Netflix" class="card-img">
+                <h3>Netflix Premium</h3>
+                <p>4K UHD + 4 Screens</p>
+                <div class="price">$5.00 <span>/ month</span></div>
+                <button class="buy-btn" data-product="netflix_premium">Buy Now</button>
             </div>
-        </section>
 
-        <section id="deposit" class="deposit-section">
-            <h2 class="title">Deposit Money (KHQR)</h2>
-            <div class="qr-container">
-                <p>Scan to pay via <strong>Acleda Bank</strong></p>
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=ACLEDA_KHQR_PAYMENT" alt="Acleda QR" class="qr-code">
-                <p class="instruction">After paying, send your receipt to our Telegram</p>
-                <a href="https://t.me/yourusername" class="telegram-btn">Contact Admin</a>
+            <div class="card">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg" alt="Spotify" class="card-img">
+                <h3>Spotify Family</h3>
+                <p>No Ads + Offline Mode</p>
+                <div class="price">$3.50 <span>/ month</span></div>
+                <button class="buy-btn" data-product="spotify_family">Buy Now</button>
             </div>
-        </section>
 
-        <section id="history" class="history-section">
-            <h2 class="title">Transaction History</h2>
-            <table class="history-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Type</th>
-                        <th>Amount</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>#001</td>
-                        <td>Deposit</td>
-                        <td>$20.00</td>
-                        <td class="status-done">Completed</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-
+        </div>
     </div>
 
+    <script src="script.js"></script>
 </body>
 </html>
