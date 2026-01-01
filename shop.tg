@@ -1,76 +1,101 @@
+import os
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, ContextTypes
 
-# --- SETTINGS ---
-BOT_TOKEN = "8503975391:AAFOiDFbPYyBlJe5agxR6HTosvozb0xHHgA"
-MY_ADMIN_ID = 123456789  # <--- PUT YOUR TELEGRAM ID HERE
+# --- YOUR PRIVATE DATA ---
+TOKEN = "8261058927:AAGNJeXjLvAqbgwyBzDRAxLot-5PfEK0kaU"
+ADMIN_ID = 6396179765  # Your ID for Near Vuthara
+DB_FILE = "database.txt"
 
-# This acts as your "database" for now
-stock = [] 
+# Ensure the database file exists
+if not os.path.exists(DB_FILE):
+    with open(DB_FILE, "w") as f:
+        pass
+
+# --- HELPER FUNCTIONS ---
+def get_stock():
+    with open(DB_FILE, "r") as f:
+        return [line.strip() for line in f.readlines() if line.strip()]
+
+def add_to_stock(account):
+    with open(DB_FILE, "a") as f:
+        f.write(account + "\n")
+
+# --- BOT LOGIC ---
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
+    name = "នៀ វុថារ៉ា" if user_id == ADMIN_ID else update.effective_user.first_name
     
-    # Standard Shop Menu for everyone
+    # Check if the user is the Admin (You)
+    is_admin = (user_id == ADMIN_ID)
+    
     keyboard = [[InlineKeyboardButton("🛒 Browse Shop", callback_data='view_shop')]]
     
-    # ONLY you will see this button
-    if user_id == MY_ADMIN_ID:
-        keyboard.append([InlineKeyboardButton("⚙️ Admin Control Panel", callback_data='admin_main')])
-        
+    if is_admin:
+        # Only YOU will see this button
+        keyboard.append([InlineKeyboardButton("⚙️ ADMIN CONTROL", callback_data='admin_panel')])
+        text = f"សួស្តី {name}! You are logged in as the **OWNER**."
+    else:
+        text = f"Welcome {name} to our Game Shop!"
+
     reply_markup = InlineKeyboardMarkup(keyboard)
-    await update.message.reply_text("👋 Welcome to the Game Account Shop!", reply_markup=reply_markup)
+    
+    if update.message:
+        await update.message.reply_text(text, reply_markup=reply_markup, parse_mode="Markdown")
+    else:
+        await update.callback_query.edit_message_text(text, reply_markup=reply_markup, parse_mode="Markdown")
 
 async def handle_buttons(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     user_id = query.from_user.id
     await query.answer()
 
-    # Admin Control Logic
-    if query.data == 'admin_main':
-        if user_id != MY_ADMIN_ID:
-            await query.edit_message_text("❌ Error: You are not the owner.")
-            return
-        
-        admin_kb = [
-            [InlineKeyboardButton("➕ Add Account", callback_data='add_item')],
-            [InlineKeyboardButton("📊 View Stock", callback_data='view_stock')],
-            [InlineKeyboardButton("🔙 Back", callback_data='back_home')]
-        ]
-        await query.edit_message_text("🛠 **ADMIN PANEL**\nWhat would you like to do?", 
-                                     reply_markup=InlineKeyboardMarkup(admin_kb), parse_mode="Markdown")
+    if query.data == 'admin_panel':
+        if user_id != ADMIN_ID: return
+        stock_count = len(get_stock())
+        admin_text = (
+            f"🛠 **ADMIN CONTROL PANEL**\n\n"
+            f"Total Accounts in Stock: `{stock_count}`\n\n"
+            f"Commands:\n"
+            f"• To add: `/add email:pass`"
+        )
+        kb = [[InlineKeyboardButton("🔙 Back", callback_data='back')]]
+        await query.edit_message_text(admin_text, reply_markup=InlineKeyboardMarkup(kb), parse_mode="Markdown")
 
-    # User Shop Logic
     elif query.data == 'view_shop':
+        stock = get_stock()
         if not stock:
-            await query.edit_message_text("🚫 Shop is empty right now!", 
-                                         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔙 Back", callback_data='back_home')]]))
+            shop_text = "❌ Sorry, we are currently **Out of Stock**."
         else:
-            await query.edit_message_text(f"✅ We have {len(stock)} accounts available!\nContact @YourUsername to buy.")
+            shop_text = f"🔥 We have **{len(stock)}** accounts available!\nContact @YiErSanSiWuLiuQiBaJiuShi_LiuShi to buy."
+        
+        kb = [[InlineKeyboardButton("🔙 Back", callback_data='back')]]
+        await query.edit_message_text(shop_text, reply_markup=InlineKeyboardMarkup(kb), parse_mode="Markdown")
 
-    elif query.data == 'back_home':
+    elif query.data == 'back':
         await start(update, context)
 
-# Command to add accounts (Admin Only)
-async def add_stock(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if update.effective_user.id != MY_ADMIN_ID:
-        return # Ignore if not you
-
-    new_acc = " ".join(context.args)
-    if new_acc:
-        stock.append(new_acc)
-        await update.message.reply_text(f"✅ Added to stock: `{new_acc}`", parse_mode="Markdown")
+async def add_account(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if update.effective_user.id != ADMIN_ID:
+        return
+    
+    account_data = " ".join(context.args)
+    if account_data:
+        add_to_stock(account_data)
+        await update.message.reply_text(f"✅ **Success!** Added to stock:\n`{account_data}`", parse_mode="Markdown")
     else:
-        await update.message.reply_text("Use: `/add email:password`", parse_mode="Markdown")
+        await update.message.reply_text("❌ Error: Use `/add user:password`", parse_mode="Markdown")
 
+# --- RUN THE BOT ---
 def main():
-    app = Application.builder().token(BOT_TOKEN).build()
+    print("Bot is starting... Hello Near Vuthara!")
+    app = Application.builder().token(TOKEN).build()
     
     app.add_handler(CommandHandler("start", start))
-    app.add_handler(CommandHandler("add", add_stock))
+    app.add_handler(CommandHandler("add", add_account))
     app.add_handler(CallbackQueryHandler(handle_buttons))
     
-    print("Bot is live...")
     app.run_polling()
 
 if __name__ == "__main__":
