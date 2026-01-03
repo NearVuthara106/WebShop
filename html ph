@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RA Shop</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="search-section">
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search">
+    </div>
+
+    <div class="filter-container">
+        <div class="filter-option active" data-category="all">
+            <span><Search></Search></span>
+            <div class="radio-circle"></div>
+        </div>
+    
+    <nav>
+        <div class="logo">RA<span>SHOP</span></div>
+    </nav>
+
+    <div class="container">
+        <h1>Select Your Premium Plan</h1>
+        <div class="shop-grid">
+
+            <h3 class="title">Account</h3>
+
+            <div class="card">
+                <div class="badge">Best Seller</div>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Netflix" class="card-img">
+                <h3>Netflix Premium</h3>
+                <p>4K UHD + 4 Screens</p>
+                <div class="price">$5.00 <span>/ month</span></div>
+                <button class="buy-btn" data-product="netflix_premium">Buy Now</button>
+            </div>
+
+            <div class="card">
+                <div class="badge">Popular</div>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg" alt="Spotify" class="card-img">
+                <h3>Youtube Family</h3>
+                <p>No Ads + Offline Mode</p>
+                <div class="price">$3.50 <span>/ month</span></div>
+                <button class="buy-btn" data-product="spotify_family">Buy Now</button>
+            </div>
+
+            <div class="card">
+                <div class="badge">Popular</div>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/20/YouTube_2024.svg" alt="Youtube" class="card-img">
+                <h3>Youtube Premium</h3>
+                <p>No Ads + Offline Mode + Lock Screen</p>
+                <div class="price">$1.30 <span>/ month</span></div>
+                <button class="buy-btn" data-product="youtube_premium">Buy Now</button>
+            </div>
+
+
+            <div class="card">
+                <div class="badge">Popular</div>
+                <img src="https://en.wikipedia.org/wiki/Free_Fire_(video_game)#/media/File:Free_Fire_New_Logo.svg" alt="Free_Fire" class="card-img">
+                <h3>Free Fire Diamond</h3>
+                <p>Safe + Fast + Instant Delivery</p>
+                <div class="price">$1.30 <span>/ Instant</span></div>
+                <button class="buy-btn" data-product="freefire_diamond">Buy Now</button>
+            </div>
+
+            <div class="card">
+                <div class="badge">Popular</div>
+                <img src="https://en.wikipedia.org/wiki/Mobile_Legends:_Bang_Bang#/media/File:Mobile_Legends_Bang_Bang_2025_logo.png" alt="Mobile_Legends" class="card-img">
+                <h3>Mobile Legends Diamond</h3>
+                <p>Safe + Fast + Instant Delivery</p>
+                <div class="price">$1.30 <span>/ Instant</span></div>
+                <button class="buy-btn" data-product="mobile_legends_diamond">Buy Now</button>
+            </div>
+
+        </div>
+    </div>
+
+<div class="payment-section">
+    <h3>Payment Methods</h3>
+    <div class="payment-grid">
+        <div class="pay-method khqr active">KHQR</div>
+        <div class="pay-method aba">ABA</div>
+        <div class="pay-method wing">Wing</div>
+    </div>
+</div>
+
+    <footer>
+    <div class="footer-content">
+        <p>&copy; 2024 PremiumShop. All Rights Reserved.</p>
+        <div class="footer-links">
+            <a href="#">Terms of Service</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Contact Support</a>
+        </div>
+    </div>
+</footer>
+
+
+    <script src="script.js"></script>
+</body>
+</html>
