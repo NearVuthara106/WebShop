@@ -58,8 +58,8 @@ def _get_env_int_list(name, *, default=None):
 
 
 # Configuration loaded from environment variables
-BOT_TOKEN = _get_env("8503975391:AAFOiDFbPYyBlJe5agxR6HTosvozb0xHHgA", required=True)
-API_TOKEN_BAKONG = _get_env("BAKONG_API_TOKEN", required=True)
+BOT_TOKEN = _get_env("8588726160:AAGEsB1_5f0zxcV6PJ8Y3cpjTuLuZwmxXBM", required=True)
+API_TOKEN_BAKONG = _get_env("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoiZDk5NGI5YjZhZTE3NGQ1NiJ9LCJpYXQiOjE3NjQ0NzMwMTIsImV4cCI6MTc3MjI0OTAxMn0.VEjaJI7qIilIT4OZHikiskGblET8ygcNg8_vSjrIZ4A", required=True)
 
 ADMIN_IDS = _get_env_int_list("ADMIN_IDS")
 if not ADMIN_IDS:
