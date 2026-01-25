@@ -1,0 +1,37 @@
+const express = require('express');
+const { BakongKHQR, MerchantInfo, khqrData } = require('bakong-khqr');
+const QRCode = require('qrcode');
+const path = require('path');
+
+const app = express();
+app.use(express.static('public'));
+
+app.get('/generate-qr', async (req, res) => {
+    const optionalData = {
+        currency: khqrData.currency.usd,
+        amount: 10.00,
+        billNumber: "THU-" + Date.now(),
+        storeLabel: "Thu Thu Account",
+    };
+
+    const merchantInfo = new MerchantInfo(
+        "yourname@abaa", 
+        "Thu Thu Account",
+        "Phnom Penh",
+        "123456",
+        "ABA Bank",
+        optionalData
+    );
+
+    const khqr = new BakongKHQR();
+    const result = khqr.generateMerchant(merchantInfo);
+
+    if (result.status.code === 0) {
+        const qrImage = await QRCode.toDataURL(result.data.qr);
+        res.json({ qrCode: qrImage });
+    } else {
+        res.status(500).json({ error: "QR Error" });
+    }
+});
+
+app.listen(3000);
